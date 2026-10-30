@@ -1,0 +1,803 @@
+/* ========================================================
+   CineCali - Estilos CSS (styles.css)
+   Guía de Desarrollo Web Interactivo (HTML, CSS y JavaScript)
+   ======================================================== */
+
+:root {
+    --bg-oscuro: #0f141c;
+    --bg-tarjeta: #1a2230;
+    --bg-tarjeta-hover: #222d40;
+    --borde: #2c3a50;
+    --dorado: #f5c518;
+    --dorado-hover: #e0b010;
+    --rojo-cine: #e50914;
+    --azul-neon: #38bdf8;
+    --verde-exito: #10b981;
+    --texto-principal: #f8fafc;
+    --texto-secundario: #94a3b8;
+    --sombra-tarjeta: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+    --sombra-neon: 0 0 15px rgba(245, 197, 24, 0.25);
+    --fuente-base: 'Montserrat', sans-serif;
+    --fuente-digital: 'Orbitron', monospace;
+    --transicion: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-oscuro);
+    color: var(--texto-principal);
+    font-family: var(--fuente-base);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* CLASE FUNDAMENTAL DEL EJERCICIO PARA OCULTAR ELEMENTOS */
+.oculto {
+    display: none !important;
+}
+
+/* ========================================================
+   1. PANTALLA DE LOGIN
+   ======================================================== */
+.contenedor-pantalla {
+    width: 100%;
+    min-height: 100vh;
+}
+
+#seccion-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+    padding: 20px;
+}
+
+.tarjeta-login {
+    background-color: var(--bg-tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: var(--sombra-tarjeta), var(--sombra-neon);
+    text-align: center;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.tarjeta-login .icono-cine {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+.tarjeta-login h2 {
+    font-size: 2rem;
+    color: var(--dorado);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.tarjeta-login .subtitulo {
+    color: var(--texto-secundario);
+    font-size: 0.88rem;
+    margin-bottom: 25px;
+}
+
+.credenciales-demo {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(245, 197, 24, 0.08);
+    border: 1px dashed rgba(245, 197, 24, 0.3);
+    border-radius: 8px;
+    color: var(--texto-secundario);
+    font-size: 0.8rem;
+}
+
+.credenciales-demo strong {
+    color: var(--dorado);
+}
+
+.alerta-error {
+    margin-top: 15px;
+    padding: 10px 14px;
+    background-color: rgba(229, 9, 20, 0.15);
+    border: 1px solid var(--rojo-cine);
+    color: #ff6b6b;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+/* ========================================================
+   2. BARRA SUPERIOR Y ESTRUCTURA PRINCIPAL
+   ======================================================== */
+.barra-superior {
+    background-color: var(--bg-tarjeta);
+    border-bottom: 1px solid var(--borde);
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.barra-superior .marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.barra-superior .marca .icono {
+    font-size: 1.8rem;
+}
+
+.barra-superior .marca h1 {
+    font-size: 1.35rem;
+    color: var(--dorado);
+    font-weight: 700;
+}
+
+.barra-superior .marca h1 span {
+    font-size: 0.85rem;
+    color: var(--azul-neon);
+    background: rgba(56, 189, 248, 0.15);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-left: 6px;
+}
+
+.usuario-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.badge-operador {
+    font-size: 0.85rem;
+    background-color: rgba(255, 255, 255, 0.06);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--borde);
+}
+
+.badge-operador strong {
+    color: var(--dorado);
+}
+
+.reloj-digital {
+    font-family: var(--fuente-digital);
+    font-size: 0.95rem;
+    color: var(--azul-neon);
+    background-color: #0b111a;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    letter-spacing: 2px;
+}
+
+.btn-cerrar-sesion {
+    background-color: transparent;
+    border: 1px solid var(--rojo-cine);
+    color: #ff6b6b;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicion);
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: var(--rojo-cine);
+    color: white;
+}
+
+/* ========================================================
+   3. GRID PRINCIPAL Y TARJETAS DE MÓDULOS
+   ======================================================== */
+.grid-principal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 24px 28px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
+}
+
+.columna {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tarjeta-panel {
+    background-color: var(--bg-tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: var(--sombra-tarjeta);
+    transition: var(--transicion);
+}
+
+.tarjeta-panel:hover {
+    border-color: rgba(245, 197, 24, 0.4);
+}
+
+.encabezado-seccion {
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 12px;
+}
+
+.encabezado-seccion h3 {
+    font-size: 1.15rem;
+    color: var(--dorado);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.encabezado-seccion .subtexto {
+    font-size: 0.8rem;
+    color: var(--texto-secundario);
+}
+
+/* ========================================================
+   4. FORMULARIOS Y CAMPOS DE ENTRADA
+   ======================================================== */
+.grupo-campo {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
+.grupo-campo label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--texto-principal);
+}
+
+.grupo-campo input,
+.grupo-campo select {
+    background-color: #0d131d;
+    border: 1px solid var(--borde);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transicion);
+}
+
+.grupo-campo input:focus,
+.grupo-campo select:focus {
+    border-color: var(--dorado);
+    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.2);
+}
+
+.fila-dos-campos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.nota-campo {
+    font-size: 0.75rem;
+    color: var(--texto-secundario);
+}
+
+/* BOTONES */
+.btn-principal {
+    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-hover) 100%);
+    color: #111;
+    font-weight: 700;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: var(--transicion);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(245, 197, 24, 0.4);
+}
+
+.btn-grande {
+    width: 100%;
+    margin-top: 10px;
+    padding: 14px;
+    font-size: 1rem;
+}
+
+.btn-secundario {
+    background-color: #243042;
+    color: var(--texto-principal);
+    border: 1px solid var(--borde);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transicion);
+}
+
+.btn-secundario:hover {
+    background-color: #2e3e56;
+    border-color: var(--azul-neon);
+}
+
+.btn-verde {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.btn-verde:hover {
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+}
+
+.btn-peligro {
+    background-color: var(--rojo-cine);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicion);
+}
+
+/* ========================================================
+   5. EFECTO TIPO RELOJ Y RESULTADO DE CÁLCULO
+   ======================================================== */
+.contenedor-resultado {
+    margin-top: 20px;
+}
+
+.animacion-reloj {
+    background: linear-gradient(135deg, rgba(245, 197, 24, 0.08) 0%, rgba(56, 189, 248, 0.08) 100%);
+    border: 1px solid rgba(245, 197, 24, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+/* Reloj analógico animado */
+.reloj-analogico-animado {
+    width: 70px;
+    height: 70px;
+    border: 3px solid var(--dorado);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 15px rgba(245, 197, 24, 0.4);
+    background-color: #0b111a;
+}
+
+.aguja {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    border-radius: 4px;
+}
+
+.aguja.minutero {
+    width: 3px;
+    height: 26px;
+    background-color: var(--dorado);
+    margin-left: -1.5px;
+    animation: rotarReloj 1.5s linear infinite;
+}
+
+.aguja.horario {
+    width: 4px;
+    height: 18px;
+    background-color: var(--azul-neon);
+    margin-left: -2px;
+    animation: rotarReloj 6s linear infinite;
+}
+
+.centro-reloj {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.texto-procesando {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.texto-procesando span {
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+}
+
+.segundero-digital {
+    font-family: var(--fuente-digital);
+    font-size: 1.4rem;
+    color: var(--dorado);
+    font-weight: 700;
+}
+
+/* Tarjeta de Resumen de Recaudación */
+.tarjeta-resumen {
+    background: linear-gradient(145deg, #182233 0%, #111827 100%);
+    border: 1px solid var(--dorado);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    animation: slideUp 0.5s ease-out;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.etiqueta-exito {
+    color: var(--verde-exito);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.cifra-recaudacion {
+    font-family: var(--fuente-digital);
+    font-size: 2.2rem;
+    color: var(--dorado);
+    font-weight: 700;
+    margin: 8px 0 14px;
+    text-shadow: 0 0 12px rgba(245, 197, 24, 0.35);
+}
+
+.detalles-recaudacion {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.85rem;
+    color: var(--texto-secundario);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    text-align: left;
+}
+
+.detalles-recaudacion p strong {
+    color: white;
+}
+
+/* ========================================================
+   6. COMPONENTE DE CÁMARA DE FOTO DEL OPERADOR
+   ======================================================== */
+.contenedor-camara {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.visor-camara {
+    width: 320px;
+    height: 240px;
+    background-color: #0b111a;
+    border: 2px dashed var(--borde);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.visor-camara video,
+.visor-camara canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.placeholder-camara {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--texto-secundario);
+    text-align: center;
+    padding: 20px;
+}
+
+.placeholder-camara span {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.acciones-camara {
+    display: flex;
+    gap: 12px;
+}
+
+.estado-camara-msg {
+    font-size: 0.8rem;
+    color: var(--azul-neon);
+}
+
+/* ========================================================
+   7. GRÁFICA DE LÍNEAS ESTADÍSTICA
+   ======================================================== */
+.metricas-rapidas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.tarjeta-metrica {
+    background-color: #0d131d;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+}
+
+.tarjeta-metrica .metrica-titulo {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--texto-secundario);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.tarjeta-metrica .metrica-valor {
+    font-family: var(--fuente-digital);
+    font-size: 1.1rem;
+    color: var(--azul-neon);
+    font-weight: 700;
+}
+
+.canvas-contenedor {
+    background-color: #0b111a;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 12px;
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+}
+
+#grafica-lineas {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.mensaje-vacio {
+    text-align: center;
+    color: var(--texto-secundario);
+    font-size: 0.85rem;
+    padding: 16px;
+    font-style: italic;
+}
+
+/* ========================================================
+   8. CAMBIO DE ASIENTOS CON RECARGO POR HORARIO
+   ======================================================== */
+.regla-alerta {
+    background: rgba(56, 189, 248, 0.08);
+    border-left: 4px solid var(--azul-neon);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 18px;
+    display: flex;
+    gap: 12px;
+    font-size: 0.83rem;
+    line-height: 1.4;
+}
+
+.regla-alerta strong {
+    color: var(--dorado);
+}
+
+.mapa-sala-contenedor {
+    background-color: #0c121c;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.pantalla-cine {
+    background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 100%);
+    border-radius: 20px 20px 0 0;
+    padding: 6px;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: white;
+    width: 70%;
+    margin: 0 auto 16px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+}
+
+.grilla-asientos {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+    max-width: 380px;
+    margin: 0 auto 14px;
+}
+
+.asiento-ui {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transicion);
+    user-select: none;
+}
+
+.asiento-ui.libre {
+    background-color: #243042;
+    color: #94a3b8;
+    border: 1px solid #334155;
+}
+
+.asiento-ui.libre:hover {
+    background-color: #38bdf8;
+    color: #0f172a;
+    transform: scale(1.1);
+}
+
+.asiento-ui.ocupado {
+    background-color: #e50914;
+    color: white;
+    cursor: not-allowed;
+}
+
+.asiento-ui.seleccionado {
+    background-color: #f5c518;
+    color: #111;
+    box-shadow: 0 0 10px rgba(245, 197, 24, 0.8);
+    transform: scale(1.08);
+}
+
+.leyenda-asientos {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    font-size: 0.75rem;
+    color: var(--texto-secundario);
+}
+
+.item-leyenda {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.muestra {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.muestra.libre { background-color: #243042; border: 1px solid #334155; }
+.muestra.ocupado { background-color: #e50914; }
+.muestra.seleccionado { background-color: #f5c518; }
+
+.flex-centrado-boton {
+    justify-content: flex-end;
+}
+
+.btn-ajustar-hora {
+    height: 42px;
+    width: 100%;
+}
+
+.resumen-cambio {
+    margin-top: 16px;
+    padding: 16px;
+    background-color: #0f172a;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    animation: fadeIn 0.4s ease;
+}
+
+.resumen-cambio.con-recargo {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, #0f172a 100%);
+}
+
+.resumen-cambio.sin-recargo {
+    border-color: var(--verde-exito);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, #0f172a 100%);
+}
+
+/* ========================================================
+   9. PIE DE PÁGINA Y ANIMACIONES
+   ======================================================== */
+.pie-pagina {
+    text-align: center;
+    padding: 16px;
+    color: var(--texto-secundario);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--borde);
+    margin-top: auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotarReloj {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* ========================================================
+   10. RESPONSIVE DESIGN (MÓVILES Y PANTALLAS PEQUEÑAS)
+   ======================================================== */
+@media (max-width: 900px) {
+    .grid-principal {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .barra-superior {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .usuario-info {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .fila-dos-campos {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCali - Sistema de Control de Taquilla</title>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================= CONTENEDOR LOGIN ================= -->
+    <div id="seccion-login" class="contenedor-pantalla">
+        <div class="tarjeta-login">
+            <div class="icono-cine">🎬</div>
+            <h2>CineCali</h2>
+            <p class="subtitulo">Sistema de Control de Taquilla y Funciones</p>
+            
+            <form id="formulario-login" onsubmit="event.preventDefault(); iniciarSesion();">
+                <div class="grupo-campo">
+                    <label for="usuario-login">Usuario:</label>
+                    <input type="text" id="usuario-login" placeholder="Ingrese usuario" autocomplete="username" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label for="password-login">Contraseña:</label>
+                    <input type="password" id="password-login" placeholder="Ingrese contraseña" autocomplete="current-password" required>
+                </div>
+
+                <button type="submit" id="btn-login" class="btn-principal">Iniciar Sesión</button>
+            </form>
+
+            <div class="credenciales-demo">
+                <small>Credenciales de acceso: <strong>Cinecali</strong> | Contraseña: <strong>Estrenos</strong></small>
+            </div>
+            <div id="mensaje-login-error" class="alerta-error oculto"></div>
+        </div>
+    </div>
+
+
+    <!-- ================= CONTENEDOR PRINCIPAL ================= -->
+    <div id="seccion-principal" class="contenedor-pantalla oculto">
+        
+        <!-- BARRA SUPERIOR -->
+        <header class="barra-superior">
+            <div class="marca">
+                <span class="icono">🎬</span>
+                <h1>CineCali <span>Taquilla Pro</span></h1>
+            </div>
+            
+            <div class="usuario-info">
+                <span class="badge-operador">Operador: <strong id="nombre-operador-activo">Cinecali</strong></span>
+                <span id="reloj-sistema" class="reloj-digital">00:00:00</span>
+                <button type="button" class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <main class="grid-principal">
+
+            <!-- COLUMNA IZQUIERDA: FOTO OPERADOR Y REGISTRO DE FUNCIONES -->
+            <div class="columna">
+                
+                <!-- COMPONENTE: CAPTURA DE FOTO DE CONTROL DEL OPERADOR -->
+                <section class="tarjeta-panel" id="modulo-foto-operador">
+                    <div class="encabezado-seccion">
+                        <h3>📸 Foto de Control del Operador</h3>
+                        <span class="subtexto">Verificación visual de turno</span>
+                    </div>
+
+                    <div class="contenedor-camara">
+                        <div class="visor-camara">
+                            <video id="video-camara" autoplay playsinline class="oculto"></video>
+                            <canvas id="canvas-foto" width="320" height="240" class="oculto"></canvas>
+                            <div id="placeholder-camara" class="placeholder-camara">
+                                <span>📷 Cámara inactiva</span>
+                                <small>Haga clic en "Activar Cámara" para verificación</small>
+                            </div>
+                        </div>
+
+                        <div class="acciones-camara">
+                            <button type="button" id="btn-activar-camara" class="btn-secundario" onclick="activarCamara()">Activar Cámara</button>
+                            <button type="button" id="btn-capturar-foto" class="btn-principal oculto" onclick="capturarFoto()">Capturar Foto</button>
+                            <button type="button" id="btn-reiniciar-foto" class="btn-peligro oculto" onclick="reiniciarCamara()">Tomar Otra</button>
+                        </div>
+                        <div id="estado-camara-msg" class="estado-camara-msg"></div>
+                    </div>
+                </section>
+
+
+                <!-- COMPONENTE: REGISTRO DE FUNCIONES Y CÁLCULO DE TAQUILLA -->
+                <section class="tarjeta-panel" id="modulo-taquilla">
+                    <div class="encabezado-seccion">
+                        <h3>🎟️ Registro de Funciones y Taquilla</h3>
+                        <span class="subtexto">Cálculo de recaudación con efecto tipo reloj</span>
+                    </div>
+
+                    <form id="formulario-taquilla" onsubmit="event.preventDefault(); procesarRecaudacion();">
+                        <div class="grupo-campo">
+                            <label for="nombre-pelicula">Nombre de la Película:</label>
+                            <input type="text" id="nombre-pelicula" placeholder="Ej: Avatar 3, Batman, IntensaMente 2" required>
+                        </div>
+
+                        <div class="fila-dos-campos">
+                            <div class="grupo-campo">
+                                <label for="sala-cine">Sala:</label>
+                                <select id="sala-cine" required>
+                                    <option value="Sala 1 - IMAX">Sala 1 - IMAX</option>
+                                    <option value="Sala 2 - 3D">Sala 2 - 3D</option>
+                                    <option value="Sala 3 - VIP">Sala 3 - VIP</option>
+                                    <option value="Sala 4 - Standard">Sala 4 - Standard</option>
+                                </select>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label for="cantidad-boletas">Cantidad de Boletas:</label>
+                                <input type="number" id="cantidad-boletas" min="1" max="500" placeholder="Ej: 45" required>
+                            </div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="precio-boleta">Precio por Boleta ($ COP):</label>
+                            <input type="number" id="precio-boleta" value="12000" min="1000" step="500" required>
+                            <small class="nota-campo">Tarifa base establecida: $12,000 COP</small>
+                        </div>
+
+                        <button type="submit" id="btn-calcular-taquilla" class="btn-principal btn-grande">
+                            Calcular Recaudación Total
+                        </button>
+                    </form>
+
+                    <!-- EFECTO RELOJ Y CONTENEDOR DE RESULTADO -->
+                    <div id="contenedor-resultado-calculo" class="contenedor-resultado oculto">
+                        
+                        <!-- ANIMACIÓN EFECTO TIPO RELOJ -->
+                        <div id="animacion-reloj" class="animacion-reloj oculto">
+                            <div class="reloj-analogico-animado">
+                                <div class="aguja minutero"></div>
+                                <div class="aguja horario"></div>
+                                <div class="centro-reloj"></div>
+                            </div>
+                            <div class="texto-procesando">
+                                <span>Calculando recaudación...</span>
+                                <div class="segundero-digital" id="contador-segundos">3.0s</div>
+                            </div>
+                        </div>
+
+                        <!-- RESULTADO FINAL DE LA RECAUDACIÓN -->
+                        <div id="tarjeta-resumen-resultado" class="tarjeta-resumen oculto">
+                            <div class="etiqueta-exito">✓ Recaudación Calculada Exitosamente</div>
+                            <div class="cifra-recaudacion" id="res-recaudacion-total">$0 COP</div>
+                            <div class="detalles-recaudacion" id="res-detalles-funcion">
+                                <!-- Generado dinámicamente con innerHTML -->
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+
+
+            <!-- COLUMNA DERECHA: GRÁFICA ESTADÍSTICA Y CAMBIO DE ASIENTOS -->
+            <div class="columna">
+                
+                <!-- COMPONENTE: GRÁFICA DE LÍNEAS DE RECAUDACIÓN -->
+                <section class="tarjeta-panel" id="modulo-grafica">
+                    <div class="encabezado-seccion">
+                        <h3>📈 Gráfica Dinámica de Recaudación</h3>
+                        <span class="subtexto">Registro continuo por funciones registradas</span>
+                    </div>
+
+                    <div class="metricas-rapidas">
+                        <div class="tarjeta-metrica">
+                            <span class="metrica-titulo">Total Acumulado</span>
+                            <span class="metrica-valor" id="total-acumulado-dinero">$0</span>
+                        </div>
+                        <div class="tarjeta-metrica">
+                            <span class="metrica-titulo">Funciones</span>
+                            <span class="metrica-valor" id="total-funciones-registradas">0</span>
+                        </div>
+                        <div class="tarjeta-metrica">
+                            <span class="metrica-titulo">Promedio / Función</span>
+                            <span class="metrica-valor" id="promedio-por-funcion">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="canvas-contenedor">
+                        <canvas id="grafica-lineas" width="600" height="260"></canvas>
+                    </div>
+
+                    <div id="mensaje-sin-datos" class="mensaje-vacio">
+                        No hay recaudaciones registradas todavía. Complete el formulario para ver la gráfica.
+                    </div>
+                </section>
+
+
+                <!-- COMPONENTE: CAMBIO DE ASIENTOS CON RECARGO POR HORARIO -->
+                <section class="tarjeta-panel" id="modulo-asientos">
+                    <div class="encabezado-seccion">
+                        <h3>💺 Gestión de Cambio de Asientos</h3>
+                        <span class="subtexto">Regla de negocio: 5% de recargo entre 15:00 y 18:00</span>
+                    </div>
+
+                    <div class="regla-alerta">
+                        <span class="icono-alerta">ℹ️</span>
+                        <div>
+                            <strong>Horario especial de recargo:</strong>
+                            <p>De 3:00 p.m. (15:00) a 6:00 p.m. (18:00) se aplica automáticamente un <strong>5% de recargo</strong> ($600 COP) sobre la tarifa base ($12,000 COP).</p>
+                        </div>
+                    </div>
+
+                    <!-- MAPA VISUAL DE SALA -->
+                    <div class="mapa-sala-contenedor">
+                        <div class="pantalla-cine">PANTALLA</div>
+                        <div id="grilla-asientos" class="grilla-asientos">
+                            <!-- Los asientos se generan con JS -->
+                        </div>
+                        <div class="leyenda-asientos">
+                            <span class="item-leyenda"><span class="muestra libre"></span> Libre</span>
+                            <span class="item-leyenda"><span class="muestra ocupado"></span> Ocupado (Actual)</span>
+                            <span class="item-leyenda"><span class="muestra seleccionado"></span> Destino</span>
+                        </div>
+                    </div>
+
+                    <!-- FORMULARIO DE CAMBIO DE ASIENTO -->
+                    <form id="formulario-asientos" onsubmit="event.preventDefault(); ejecutarCambioAsiento();">
+                        <div class="fila-dos-campos">
+                            <div class="grupo-campo">
+                                <label for="asiento-actual">Asiento Actual:</label>
+                                <select id="asiento-actual" onchange="actualizarSeleccionAsientos()" required>
+                                    <!-- Opciones generadas por JS -->
+                                </select>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label for="asiento-nuevo">Nuevo Asiento Deseado:</label>
+                                <select id="asiento-nuevo" onchange="actualizarSeleccionAsientos()" required>
+                                    <!-- Opciones generadas por JS -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="fila-dos-campos">
+                            <div class="grupo-campo">
+                                <label for="hora-cambio">Hora de la Operación:</label>
+                                <input type="time" id="hora-cambio" required>
+                                <small class="nota-campo">Puede usar la hora actual o probar otra hora</small>
+                            </div>
+
+                            <div class="grupo-campo flex-centrado-boton">
+                                <button type="button" class="btn-secundario btn-ajustar-hora" onclick="establecerHoraActual()">
+                                    Usar Hora Actual
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="btn-cambiar-asiento" class="btn-principal btn-verde">
+                            Confirmar Cambio de Asiento
+                        </button>
+                    </form>
+
+                    <!-- RECIBO DEL CAMBIO DE ASIENTO -->
+                    <div id="res-cambio-asiento" class="resumen-cambio oculto">
+                        <!-- Generado dinámicamente con innerHTML -->
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+        <footer class="pie-pagina">
+            <p>Sistema de Taquilla CineCali &copy; 2026 - Desarrollo Web Interactivo (HTML, CSS y JavaScript)</p>
+        </footer>
+
+    </div>
+
+    <!-- Archivo de Lógica JavaScript -->
+    <script src="../JS/codigo.js"></script>
+</body>
+</html>
